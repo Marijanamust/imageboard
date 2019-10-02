@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+<head>
+    <title></title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <h1>I <3 Random images</h1>
+        <h3>Latest images</h3>
+    <div id="main">
+        <h2 @click="myFunction">The best cohort is {{name}}</h2>
+        <h2 v-on:click="myFunction">Maths! 2*2={{2*2}}</h2>
+        <h2 :class="myClassName">Capitalize {{"sassafras".toUpperCase()}}</h2>
+        <h2 v-bind:class="myClassName">Capitalize {{name.toUpperCase()}}</h2>
+
+        <h3 v-if="seen">Can you see me????</h3>
+        <ul>
+            <li v-for="planet in planets" @click="myFunction(planet.name)">{{planet.name}},{{planet.color}}</li>
+        </ul>
+    </div>
+    <script src="/js/vue.js"></script>
+    <script src="/js/axios.min.js"></script>
+    <script type="text/javascript" src="/js/script.js"></script>
+</body>
+</html>
