@@ -1,6 +1,6 @@
 # imageboard SPACEGRAM
 
-[![Welcome](https://i.gyazo.com/ecdd7005596c2a173a1f9dcd4be26d0b.gif)]
+[![Welcome](https://i.gyazo.com/ecdd7005596c2a173a1f9dcd4be26d0b.gif)](https://gyazo.com/ecdd7005596c2a173a1f9dcd4be26d0b)
 
 A Vue.js based, Single-Page Application [imageboard](https://medium.com/praytellagency/chanthropology-the-japanese-origins-of-imageboard-culture-60ffb3f5ff15) with space theme that I created in [Spiced Academy](https://www.spiced-academy.com/) bootcamp as one of the assignments.
 (All the dummy pictures that were uploaded, I took from official NASA website for display purposes).
