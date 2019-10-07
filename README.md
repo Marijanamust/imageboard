@@ -38,10 +38,6 @@ All the features:
 
 [![Upload](https://i.gyazo.com/8255e0a39912556d264a3366ed234ae5.gif)](https://gyazo.com/8255e0a39912556d264a3366ed234ae5)
 
-### Image page
-
-[![Image page](https://i.gyazo.com/5f323fe12bad512c4a38de86c7f1898a.png)](https://gyazo.com/5f323fe12bad512c4a38de86c7f1898a)
-
 ### Previous and next button
 
 [![Previous and next button](https://i.gyazo.com/b7073167a8c6c709f71246d05836b53f.gif)](https://gyazo.com/b7073167a8c6c709f71246d05836b53f)
