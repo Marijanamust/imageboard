@@ -3,9 +3,9 @@ const fs = require("fs");
 
 let secrets;
 if (process.env.NODE_ENV == "production") {
-    secrets = process.env; // in prod the secrets are environment variables
+    secrets = process.env;
 } else {
-    secrets = require("./secrets"); // in dev they are in secrets.json which is listed in .gitignore
+    secrets = require("./secrets");
 }
 
 const s3 = new aws.S3({
@@ -32,7 +32,6 @@ exports.upload = function(req, res, next) {
         .then(() => {
             next();
             fs.unlink(path, () => {});
-            // url is s3.amazonaws.com/nameofbucket/filename
         })
         .catch(err => {
             console.log(err);

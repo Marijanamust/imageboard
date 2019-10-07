@@ -2,20 +2,15 @@ console.log("sainty");
 
 (function() {
     Vue.component("image-modal", {
-        //data, methods, mounted
         template: "#image-modal-template",
         props: ["image_id"],
         watch: {
             image_id: function() {
-                // console.log("THIS INSIDE COMPONENT", this);
                 var me = this;
                 axios
                     .get("/imagedata/" + this.image_id)
                     .then(function(response) {
-                        // console.log("IN THEN ME.Data ", me.image);
-
                         if (response.data[0].length == 0) {
-                            // console.log(response.data[0]);
                             me.closeModal();
                         } else {
                             me.image = response.data[0][0];
@@ -25,7 +20,6 @@ console.log("sainty");
                             );
 
                             me.comments.map(function(comment) {
-                                // console.log()
                                 comment.created_at = parseDate(
                                     comment.created_at
                                 );
@@ -53,16 +47,12 @@ console.log("sainty");
                 showNext: true,
                 showPrev: true,
                 showSure: false
-                // showErrorMod: false
             };
         },
 
         mounted: function() {
-            console.log("THIS INSIDE COMPONENT", this);
             var me = this;
             axios.get("/imagedata/" + this.image_id).then(function(response) {
-                // console.log("IN THEN ME.Data ", me.image);
-
                 if (response.data[0].length == 0) {
                     console.log(response.data[0]);
                     me.closeModal();
@@ -73,11 +63,9 @@ console.log("sainty");
                         response.data[0][0].created_at
                     );
                     me.comments.map(function(comment) {
-                        // console.log()
                         comment.created_at = parseDate(comment.created_at);
                     });
-                    console.log("PREVIOUS", me.image.previd);
-                    console.log("NEXT", me.image.nextid);
+
                     if (!me.image.nextid) {
                         me.showNext = false;
                     } else {
@@ -88,27 +76,15 @@ console.log("sainty");
                     } else {
                         me.showPrev = true;
                     }
-                    // // console.log("response.data", response.data);
-                    // console.log("COMMENTS", me.comments);
                 }
             });
-            console.log("IMAGE ID INSIDE COMPONENT", this.image_id);
         },
         methods: {
-            myClick: function() {
-                console.log("myClick running");
-            },
             closeModal: function() {
-                // when user clicks on the x
-                console.log("Clicked on x");
-
                 this.$emit("close");
             },
             postcomment: function(e) {
                 e.preventDefault();
-                // console.log("this POSTED COMMENT: ", this);
-                // // this.comment=
-                // console.log("FORM OF THIS", this.form);
                 var data = {
                     comment: this.form.comment,
                     username: this.form.username,
@@ -118,12 +94,6 @@ console.log("sainty");
                 axios
                     .post("/comments", data)
                     .then(function(response) {
-                        console.log(
-                            "response from post upload ",
-                            response.data
-                        );
-                        // var img = response.data[0];
-
                         var comment = response.data[0];
                         me.comments.unshift(comment);
                         me.comments[0].created_at = parseDate(
@@ -131,24 +101,18 @@ console.log("sainty");
                         );
                         me.form.comment = "";
                         me.form.username = "";
-                        // me.showErrorMod = false;
                     })
                     .catch(error => {
                         console.log("error in post", error);
-                        // me.showErrorMod = true;
                     });
             },
             deletePicOnChild: function() {
                 this.$emit("deletepic");
             },
             showPrevFunc: function() {
-                console.log("IM IN PREV");
-                console.log("IMAGE", this.image);
                 location.hash = "#" + this.image.previd;
-                // this.image_id=this.image.prevID
             },
             showNextFunc: function() {
-                console.log("IM IN NEXT");
                 location.hash = "#" + this.image.nextid;
             },
             closeSureFunc: function() {
@@ -173,10 +137,8 @@ console.log("sainty");
             showError: false
         },
         mounted: function() {
-            console.log("My vue has mounted");
             var me = this;
             addEventListener("hashchange", () => {
-                console.log(location.hash);
                 if (
                     location.hash.slice(1) != "" &&
                     !isNaN(location.hash.slice(1))
@@ -184,19 +146,15 @@ console.log("sainty");
                     this.image_id = location.hash.slice(1);
                 } else {
                     this.closeModalOnParent();
-                    // history.pushstate({}, "", "/");
                 }
             });
 
             axios.get("/images").then(function(response) {
-                console.log("IN THEN ME.Data ", me.images);
-
                 me.images = response.data;
             });
         },
         methods: {
             closeModalOnParent: function() {
-                console.log("We are getting to the parent to close");
                 location.hash = "";
                 this.image_id = "";
                 this.showError = false;
@@ -204,7 +162,7 @@ console.log("sainty");
 
             handleClick: function(e) {
                 e.preventDefault();
-                console.log("this: ", this);
+
                 var formData = new FormData();
                 formData.append("title", this.title);
                 formData.append("description", this.description);
@@ -215,8 +173,6 @@ console.log("sainty");
                 axios
                     .post("/upload", formData)
                     .then(function(response) {
-                        console.log("response from post upload ", response);
-                        // var img = response.data[0];
                         var img = {
                             title: response.data[0].title,
                             username: response.data[0].username,
@@ -237,25 +193,20 @@ console.log("sainty");
                     });
             },
             handleChange: function(e) {
-                // console.log("Handle change is runnning");
-                // console.log("file: ", e.target.files[0]);
                 this.file = e.target.files[0];
             },
             moreimages: function(e) {
                 e.preventDefault();
-                // console.log(this.images[7].id);
+
                 var currLowestId = this.images[this.images.length - 1].id;
                 var me = this;
                 axios
                     .get("/moreimages/" + currLowestId)
                     .then(function(response) {
-                        console.log("GOT more IMAGES", response.data);
-
                         me.images.push(...response.data);
                         var currLowestId = me.images[me.images.length - 1].id;
                         var genLowestId = response.data[0].lowestId;
-                        // console.log("GENERAL LOWEST ID", genLowestId);
-                        // console.log("CURRENT LOWEST ID", currLowestId);
+
                         if (currLowestId == genLowestId) {
                             me.showButton = false;
                         }
@@ -263,20 +214,13 @@ console.log("sainty");
             },
             deletePicOnParent: function() {
                 var me = this;
-                // console.log("IMAGE ID FINDING", location.hash.slice(1));
+
                 axios
                     .get("/delete/" + location.hash.slice(1))
-                    .then(function(response) {
-                        console.log("IMAGE_ID", me.image_id);
-                        console.log("LAST IMAGE ID", me.images[0].id);
+                    .then(() => {
                         me.images = me.images.filter(function(image) {
                             return image.id != me.image_id;
                         });
-                        console.log("ME IMAGES ID", me.images);
-                        // me.images = me.images.filter(function(image) {
-                        //     return image.id !== 30;
-                        // });
-                        // console.log("CURRENT IMAGE IN ARRAY", currentImg);
                         me.closeModalOnParent();
                     })
                     .catch(error => {
@@ -323,6 +267,13 @@ console.log("sainty");
         if (diff <= 777600) {
             return "1 week ago";
         }
-        return "on " + date;
+        return (
+            "on " +
+            date.getDate() +
+            "/" +
+            date.getMonth() +
+            "/" +
+            date.getFullYear()
+        );
     }
 })();

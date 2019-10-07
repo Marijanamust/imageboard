@@ -15,12 +15,7 @@
             <h3>Latest beautiful images of space</h3>
         </div>
         <div class="mainCont">
-            <!-- <div v-for="planet in planets" class="planets">
-                <p @click="showModalMethod(planet.name)">{{planet.name}}</p>
-            </div> -->
-            <!-- left side refers to component and right side to instance data  -->
-
-            <form class="imageForm" autocomplete="off">
+                <form class="imageForm" autocomplete="off">
                 <input v-model="title" type="text" name="title" placeholder="title">
                 <input v-model="description" type="text" name="description" placeholder="description">
                 <input v-model="username" type="text" name="username" placeholder="username">
@@ -32,7 +27,7 @@
             <div class="imgContainer">
 
                 <div class="imgDiv" v-for="image in images" :key="image.url" >
-                    <!-- @click="showModalMethod(image.id)" -->
+        
                     <a :href="'#' + image.id">
 
                         <img :src="image.url" >
